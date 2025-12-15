@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organigrama SEREMI de Salud - Completo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow: auto;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0033A0 0%, #005EB8 100%);
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .page-wrapper {
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: stretch;
+            width: 320px;
+        }
+
+        .controls-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            background: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-size: 13px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary {
+            background: #D52B1E;
+            color: white;
+        }
+
+        .search-container {
+            width: 100%;
+            display: flex;
+            justify-content: stretch;
+        }
+
+        .search-box {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            min-width: 2500px;
+            width: fit-content;
+            margin: 0 auto;
+            transform-origin: top center;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            animation: fadeInDown 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .header-logo {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        .header h1 {
+            color: #0033A0;
+            font-size: 28px;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header .subtitle {
+            color: #666;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0 30px 0;
+            padding: 15px;
+            background: rgba(0, 51, 160, 0.08);
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0033A0;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .orgchart {
+            position: relative;
+            padding: 20px 0;
+            width: 100%;
+        }
+
+        .level-top {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .level-second {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .departments-row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 25px;
+            margin: 30px 0;
+            padding-bottom: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .departments-row .department-box {
+            flex: 0 0 auto;
+            width: 320px;
+        }
+
+        .node {
+            background: white;
+            padding: 14px 22px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            text-align: center;
+            animation: slideUp 0.6s ease;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .node:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            z-index: 10;
+        }
+
+        .node.highlight {
+            animation: pulse 0.6s ease;
+            border: 3px solid #FFD700;
+        }
+
+        .secretario {
+            background: linear-gradient(135deg, #0033A0 0%, #002776 100%);
+            color: white;
+            font-size: 17px;
+            padding: 22px 35px;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(0, 51, 160, 0.4);
+            min-width: 400px;
+        }
+
+        .consejo {
+            background: linear-gradient(135deg, #ECEFF1 0%, #CFD8DC 100%);
+            color: #263238;
+            border: 2px solid #90A4AE;
+            font-weight: 600;
+            min-width: 180px;
+        }
+
+        .gabinete {
+            background: linear-gradient(135deg, #D52B1E 0%, #A02318 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(213, 43, 30, 0.4);
+            min-width: 200px;
+        }
+
+        .nivel-unidad {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            color: #01579B;
+            border: 2px solid #0078D4;
+            box-shadow: 0 3px 12px rgba(0, 120, 212, 0.2);
+            font-size: 12px;
+        }
+
+        .nivel-departamento {
+            background: linear-gradient(135deg, #005EB8 0%, #0033A0 100%);
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 94, 184, 0.4);
+            font-size: 14px;
+        }
+
+        .nivel-subdepartamento {
+            background: linear-gradient(135deg, #0078D4 0%, #005EB8 100%);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 3px 12px rgba(0, 120, 212, 0.3);
+            font-size: 12px;
+        }
+
+        .nivel-oas {
+            background: linear-gradient(135deg, #005EB8 0%, #0033A0 100%);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(139,21,56,0.3);
+            font-size: 12px;
+        }
+
+        .connector {
+            width: 3px;
+            height: 18px;
+            background: linear-gradient(to bottom, #8B1538, #B91D47);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .connector::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: #8B1538;
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
+
+        .level-top {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .top-structure {
+            position: relative;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 60px 0 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-axis {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .consejo-absolute {
+            position: absolute;
+            left: -190px;
+            top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .horizontal-line-dashed {
+            width: 390px;
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                #9E9E9E 0px,
+                #9E9E9E 5px,
+                transparent 5px,
+                transparent 10px
+            );
+            margin-left: 0;
+        }
+
+        .horizontal-line {
+            height: 3px;
+            background: linear-gradient(to right, #8B1538, #B91D47, #8B1538);
+            margin: 25px auto;
+            position: relative;
+            width: 100%;
+            max-width: 2400px;
+        }
+
+        .department-box {
+            background: rgba(248,248,248,0.95);
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .department-box:hover {
+            background: rgba(255,255,255,1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .department-box::before {
+            content: '';
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            width: 2px;
+            height: 28px;
+            background: linear-gradient(to bottom, #8B1538, #ccc);
+            transform: translateX(-50%);
+            display: block;
+        }
+
+        .department-title {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .sub-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 12px 0;
+            padding: 12px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            border-left: 4px solid #8B1538;
+        }
+
+        .collapsible {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+
+        .collapsible::after {
+            content: '▼';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        .collapsible.collapsed::after {
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        .link-icon {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 16px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .link-icon:hover {
+            opacity: 1;
+            transform: scale(1.2);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .collapse-content {
+            max-height: 5000px;
+            overflow: visible;
+            transition: max-height 0.5s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .collapse-content.hidden {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .legend {
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f9f9f9 0%, #e9e9e9 100%);
+            border-radius: 12px;
+            border-left: 5px solid #8B1538;
+        }
+
+        .legend h3 {
+            color: #8B1538;
+            margin-bottom: 18px;
+            font-size: 18px;
+        }
+
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            transition: transform 0.2s ease;
+            font-size: 13px;
+        }
+
+        .legend-item:hover {
+            transform: translateX(5px);
+        }
+
+        .legend-box {
+            width: 35px;
+            height: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .tooltip {
+            position: fixed;
+            background: rgba(0,0,0,0.95);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            pointer-events: none;
+            z-index: 2000;
+            display: none;
+            max-width: 300px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        @media print {
+            .controls, .search-container, .btn { display: none; }
+            body { background: white; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            .header h1 { font-size: 22px; }
+            .controls { position: relative; top: 0; right: 0; margin-bottom: 20px; }
+            .controls-row { justify-content: center; }
+            .search-container { justify-content: center; }
+            .departments-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+    <!-- Controles -->
+    <div class="controls">
+        <div class="controls-row">
+            <button class="btn btn-primary" onclick="expandAll()">📂 Expandir Todo</button>
+            <button class="btn" onclick="collapseAll()">📁 Colapsar Todo</button>
+        </div>
+        <div class="controls-row">
+            <button class="btn" onclick="zoomIn()">🔍 Zoom +</button>
+            <button class="btn" onclick="zoomOut()">🔍 Zoom -</button>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="🔎 Buscar unidad..." onkeyup="buscar(this.value)">
+        </div>
+    </div>
+
+    <div class="container" id="orgContainer">
+        <div class="header">
+            <div class="header-text">
+                <h1>ORGANIGRAMA INSTITUCIONAL</h1>
+                <p class="subtitle">Secretaría Regional Ministerial de Salud - Región de La Araucanía</p>
+            </div>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Departamentos</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">28</div>
+                <div class="stat-label">Subdepartamentos</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">70+</div>
+                <div class="stat-label">Unidades</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">12</div>
+                <div class="stat-label">OAS</div>
+            </div>
+        </div>
+
+        <div class="orgchart">
+            <!-- Estructura superior -->
+            <div class="top-structure">
+                <div class="main-axis">
+                    <!-- Consejo Asesor (posición absoluta a la izquierda) -->
+                    <div class="consejo-absolute">
+                        <div class="node consejo" data-info="Órgano consultivo de la Secretaría" onclick="window.open('https://transparencia.redsalud.gov.cl/transparencia/public/seremi7/archivos/93C1E48E4FF615DDE04001011E0142D7', '_blank')" style="cursor: pointer;">
+                            Consejo Asesor
+                        </div>
+                        <div class="horizontal-line-dashed"></div>
+                    </div>
+
+                    <!-- Eje central: Secretario - Gabinete -->
+                    <div class="node secretario" data-info="Máxima autoridad regional de salud">
+                        Secretario Regional Ministerial de Salud
+                    </div>
+                    
+                    <div class="connector"></div>
+                    
+                    <div class="node gabinete collapsible" data-info="Coordinación ejecutiva" onclick="toggleSection('gabinete-units')">
+                        Gabinete
+                        <span class="link-icon" style="opacity: 0.4; cursor: default;" title="Sin enlace disponible">📄</span>
+                    </div>
+                    
+                    <div class="collapse-content" id="gabinete-units">
+                        <div class="connector"></div>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 15px; max-width: 1200px;">
+                            <div class="node nivel-unidad">Unidad de Auditoría</div>
+                            <div class="node nivel-unidad">Unidad de Gestión de Riesgo en Emergencias y Desastres</div>
+                            <div class="node nivel-unidad">Unidad de Comunicaciones y Relaciones Públicas</div>
+                            <div class="node nivel-unidad">Unidad de OIRS</div>
+                            <div class="node nivel-unidad">Unidad de Estudios y Análisis Estadístico</div>
+                            <div class="node nivel-unidad">Unidad de Control de Gestión</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="connector"></div>
+            <div class="horizontal-line"></div>
+
+            <!-- Fila de Departamentos -->
+            <div class="departments-row">
+                
+                <!-- 1. Departamento Jurídico -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento">
+                            Departamento Jurídico
+                            <span class="link-icon" style="opacity: 0.4; cursor: default;" title="Sin enlace disponible">📄</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. COMPIN -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('compin')">
+                            Comisión Regional de Medicina Preventiva e Invalidez
+                            <span class="link-icon" style="opacity: 0.4; cursor: default;" title="Sin enlace disponible">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="compin">
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">COMPIN Cautín</div>
+                            <div class="node nivel-unidad">Unidad de Contraloría Médica</div>
+                            <div class="node nivel-unidad">Unidad de Beneficios de Seguridad Social y Discapacidad</div>
+                            <div class="node nivel-unidad">Unidad de Licencias Médicas</div>
+                            <div class="node nivel-unidad">Unidad de Subsidios</div>
+                            <div class="node nivel-unidad">Unidad de Fiscalización</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">COMPIN Malleco</div>
+                            <div class="node nivel-unidad">Médico Contralor</div>
+                            <div class="node nivel-unidad">Unidad de Licencias Médicas</div>
+                            <div class="node nivel-unidad">Unidad de Beneficios de Seguridad Social y Discapacidad</div>
+                            <div class="node nivel-unidad">Unidad de Subsidios</div>
+                            <div class="node nivel-unidad">Unidad de Fiscalización</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Departamento de Acción Sanitaria -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('accion')">
+                            Departamento de Acción Sanitaria
+                            <span class="link-icon" style="opacity: 0.4; cursor: default;" title="Sin enlace disponible">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="accion">
+                        <div class="sub-section">
+                            <div class="node nivel-oas">OAS Lautaro</div>
+                            <div class="node nivel-oas">OAS Imperial</div>
+                            <div class="node nivel-oas">OAS Pitrufquén</div>
+                            <div class="node nivel-oas">OAS Loncoche</div>
+                            <div class="node nivel-oas">OAS Villarrica</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento Salud Ambiental y Laboral</div>
+                            <div class="node nivel-unidad">Unidad de Agua</div>
+                            <div class="node nivel-unidad">Unidad de Evaluación Ambiental y Calidad del Aire</div>
+                            <div class="node nivel-unidad">Unidad de Residuos</div>
+                            <div class="node nivel-unidad">Unidad de Salud Ocupacional</div>
+                            <div class="node nivel-unidad">Unidad de Locales de Uso Público</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento de Zoonosis y Vectores</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento de Inocuidad Alimentaria</div>
+                            <div class="node nivel-unidad">Unidad de Comercio Exterior</div>
+                            <div class="node nivel-unidad">Unidad de Fiscalización y Auditoría</div>
+                            <div class="node nivel-unidad">Unidad de Formalización</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepto. de Profesiones Médicas, Paramédicas y Farmacias</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepto. de Laboratorio Salud Pública Amb. y Lab.</div>
+                            <div class="node nivel-unidad">Unidad de Laboratorio de Microbiología</div>
+                            <div class="node nivel-unidad">Unidad de Laboratorio de Química</div>
+                            <div class="node nivel-unidad">Unidad de Toma de Muestras</div>
+                            <div class="node nivel-unidad">Unidad de Análisis de Sustancias Ilícitas</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Departamento de Administración y Finanzas -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('admin')">
+                            Departamento de Administración y Finanzas
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank');" title="Ver resolución oficial">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="admin">
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Subdepartamento de Administración Interna</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Adquisiciones</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Oficina de Partes</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Bodega</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Egresos</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Inventario</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Subdepartamento de Finanzas</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Contabilidad</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Presupuesto</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Tesorería</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Subdepartamento Tecnologías de la Información y Comunicaciones</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Tecnologías de la Información y Comunicaciones</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Transparencia Activa</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Gestión Documental</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Subdepartamento Servicios Generales</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Administración de Servicios</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Administración de Convenios</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/documents/10179/62801/2023-Res.Ex+CP+N3391-2023+15.02.2023+Crea+Depto+Gestion+y+Desarrollo+de+Personas.pdf/dcd8ee49-faa2-48fa-9713-ffb995d8bbf0', '_blank')" style="cursor: pointer;">Unidad de Infraestructura</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Departamento de Gestión y Desarrollo de Personas -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('personas')">
+                            Departamento de Gestión y Desarrollo de Personas
+                            <span class="link-icon" style="opacity: 0.4; cursor: default;" title="Sin enlace disponible">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="personas">
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento de Personal y Remuneraciones</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento de Desarrollo de Personas y Bienestar</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento de Prevención de Riesgos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Departamento de Salud Pública y Planificación Sanitaria -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('saludpublica')">
+                            Departamento de Salud Pública y Planificación Sanitaria
+                            <span class="link-icon" style="opacity: 0.4; cursor: default;" title="Sin enlace disponible">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="saludpublica">
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento de Programas Sanitarios</div>
+                            <div class="node nivel-unidad">Unidad de Prevención de Enfermedades No Transmisibles</div>
+                            <div class="node nivel-unidad">Unidad de Salud Sexual, Salud Reproductiva y Género</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento de Inmunizaciones</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento de Relaciones Interculturales y Salud</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento de Epidemiología</div>
+                            <div class="node nivel-unidad">Unidad de Vigilancia de Enfermedades No Transmisibles y Vigilancia Ambiental</div>
+                            <div class="node nivel-unidad">Unidad de Vigilancia de Enfermedades Transmisibles</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento">Subdepartamento de Políticas Públicas Saludables</div>
+                            <div class="node nivel-unidad">Unidad de Promoción de la Salud y Participación Ciudadana</div>
+                            <div class="node nivel-unidad">Unidad de Nutrición y Programas Alimentarios</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Oficina Provincial Malleco -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('malleco')">
+                            Oficina Provincial Malleco
+                            <span class="link-icon" style="opacity: 0.4; cursor: default;" title="Sin enlace disponible">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="malleco">
+                        <div class="sub-section">
+                            <div class="node nivel-unidad">Coordinación Administrativa</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-unidad">Sección Epidemiología y PNI</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-unidad">Sección Promoción de la Salud</div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-oas">OAS Angol</div>
+                            <div class="node nivel-oas">OAS Collipulli</div>
+                            <div class="node nivel-oas">OAS Lonquimay</div>
+                            <div class="node nivel-oas">OAS Curacautín</div>
+                            <div class="node nivel-oas">OAS Traiguén</div>
+                            <div class="node nivel-oas">OAS Victoria</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Leyenda -->
+        <div class="legend">
+            <h3>📊 Leyenda de Colores y Niveles</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-box" style="background: linear-gradient(135deg, #5a5a5a, #3d3d3d);"></div>
+                    <span><strong>Secretario Regional</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: linear-gradient(135deg, #8B1538, #B91D47);"></div>
+                    <span><strong>Gabinete / Departamentos</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: linear-gradient(135deg, #B91D47, #D91E56);"></div>
+                    <span><strong>Subdepartamentos / OAS</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: linear-gradient(135deg, #FFF3CD, #FFE7A0); border: 2px solid #FFC107;"></div>
+                    <span><strong>Unidades</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: linear-gradient(135deg, #F5F5F5, #E0E0E0); border: 2px solid #9E9E9E;"></div>
+                    <span><strong>Consejo Asesor</strong></span>
+                </div>
+            </div>
+            <p style="margin-top: 18px; color: #666; font-size: 13px;">
+                💡 <strong>Tip:</strong> Haz clic en los departamentos para expandir/colapsar. Usa la búsqueda para encontrar unidades específicas.
+            </p>
+        </div>
+
+        <p style="text-align: center; margin-top: 35px; color: #999; font-size: 12px;">
+            Última actualización: Diciembre 2025 | SEREMI de Salud - Región de La Araucanía
+        </p>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        let zoomLevel = 1;
+
+        // Tooltips
+        const tooltip = document.getElementById('tooltip');
+        const nodes = document.querySelectorAll('.node');
+
+        nodes.forEach(node => {
+            node.addEventListener('mouseenter', (e) => {
+                const info = node.getAttribute('data-info');
+                if (info) {
+                    tooltip.textContent = info;
+                    tooltip.style.display = 'block';
+                }
+            });
+
+            node.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.clientX + 15 + 'px';
+                tooltip.style.top = e.clientY + 15 + 'px';
+            });
+
+            node.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
+        });
+
+        // Collapse/Expand
+        function toggleSection(id) {
+            event.stopPropagation();
+            const section = document.getElementById(id);
+            const button = event.currentTarget;
+            
+            section.classList.toggle('hidden');
+            button.classList.toggle('collapsed');
+        }
+
+        function expandAll() {
+            document.querySelectorAll('.collapse-content').forEach(el => {
+                el.classList.remove('hidden');
+            });
+            document.querySelectorAll('.collapsible').forEach(el => {
+                el.classList.remove('collapsed');
+            });
+        }
+
+        function collapseAll() {
+            document.querySelectorAll('.collapse-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.querySelectorAll('.collapsible').forEach(el => {
+                el.classList.add('collapsed');
+            });
+        }
+
+        // Zoom
+        function zoomIn() {
+            if (zoomLevel < 1.5) {
+                zoomLevel += 0.1;
+                const container = document.getElementById('orgContainer');
+                container.style.transform = `scale(${zoomLevel})`;
+                container.style.transformOrigin = 'top center';
+            }
+        }
+
+        function zoomOut() {
+            if (zoomLevel > 0.8) {
+                zoomLevel -= 0.1;
+                const container = document.getElementById('orgContainer');
+                container.style.transform = `scale(${zoomLevel})`;
+                container.style.transformOrigin = 'top center';
+            }
+        }
+
+        // Búsqueda
+        function buscar(texto) {
+            const searchText = texto.toLowerCase();
+            
+            // Remover highlights previos
+            nodes.forEach(node => {
+                node.classList.remove('highlight');
+            });
+            
+            if (searchText.length < 2) return;
+            
+            // Buscar y highlight
+            let found = false;
+            nodes.forEach(node => {
+                const nodeText = node.textContent.toLowerCase();
+                
+                if (nodeText.includes(searchText)) {
+                    node.classList.add('highlight');
+                    if (!found) {
+                        node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        found = true;
+                    }
+                    
+                    // Expandir la sección padre si está colapsada
+                    let parent = node.closest('.collapse-content');
+                    if (parent && parent.classList.contains('hidden')) {
+                        parent.classList.remove('hidden');
+                        const button = document.querySelector(`[onclick*="${parent.id}"]`);
+                        if (button) button.classList.remove('collapsed');
+                    }
+                }
+            });
+        }
+
+        // Inicializar con todo expandido
+        window.addEventListener('load', () => {
+            expandAll();
+            console.log('✅ Organigrama SEREMI completo cargado');
+            console.log('📊 Total unidades: 70+');
+            console.log('🔍 Usa la búsqueda para encontrar unidades');
+        });
+    </script>
+    </div>
+</body>
+</html>
