@@ -1179,6 +1179,22 @@
         // Inicializar con todo expandido
         window.addEventListener('load', () => {
             expandAll();
+            
+            // Establecer zoom inicial al 70% para visualizar todo el organigrama
+            zoomLevel = 0.7;
+            const container = document.getElementById('orgContainer');
+            container.style.transform = `scale(${zoomLevel})`;
+            container.style.transformOrigin = 'top center';
+            
+            // Centrar horizontalmente el contenido
+            setTimeout(() => {
+                const wrapper = document.querySelector('.page-wrapper');
+                if (wrapper) {
+                    const scrollLeft = (wrapper.scrollWidth - wrapper.clientWidth) / 2;
+                    wrapper.scrollLeft = scrollLeft;
+                }
+            }, 100);
+            
             console.log('✅ Organigrama SEREMI completo cargado');
             console.log('📊 Total unidades: 70+');
             console.log('🔍 Usa la búsqueda para encontrar unidades');
