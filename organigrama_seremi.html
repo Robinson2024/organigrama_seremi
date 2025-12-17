@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -16,12 +16,14 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0033A0 0%, #005EB8 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #003087 0%, #0051A5 50%, #006BB8 100%);
             min-height: 100vh;
             padding: 0;
             margin: 0;
             overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .page-wrapper {
@@ -53,26 +55,32 @@
 
         .btn {
             background: white;
-            border: none;
+            border: 1px solid rgba(0,0,0,0.08);
             padding: 12px 20px;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 13px;
             width: 100%;
             text-align: center;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.08);
+            border-color: rgba(0,0,0,0.12);
         }
 
         .btn-primary {
-            background: #D52B1E;
+            background: linear-gradient(135deg, #C62828 0%, #B71C1C 100%);
             color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #D32F2F 0%, #C62828 100%);
         }
 
         .search-container {
@@ -91,10 +99,10 @@
         }
 
         .container {
-            background: white;
-            border-radius: 20px;
-            padding: 30px 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 40px 50px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
             min-width: 2500px;
             width: fit-content;
             margin: 0 auto;
@@ -124,16 +132,19 @@
         }
 
         .header h1 {
-            color: #0033A0;
-            font-size: 28px;
-            margin-bottom: 8px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            color: #003087;
+            font-size: 30px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: none;
         }
 
         .header .subtitle {
-            color: #666;
+            color: #555;
             font-size: 14px;
-            font-weight: 300;
+            font-weight: 400;
+            letter-spacing: 0.3px;
         }
 
         .stats-bar {
@@ -202,21 +213,22 @@
 
         .node {
             background: white;
-            padding: 14px 22px;
-            border-radius: 10px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+            padding: 15px 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             text-align: center;
             animation: slideUp 0.6s ease;
             font-size: 13px;
-            line-height: 1.4;
+            line-height: 1.5;
+            font-weight: 500;
         }
 
         .node:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
             z-index: 10;
         }
 
@@ -226,13 +238,15 @@
         }
 
         .secretario {
-            background: linear-gradient(135deg, #0033A0 0%, #002776 100%);
+            background: linear-gradient(135deg, #C62828 0%, #9D1F1F 100%);
             color: white;
             font-size: 17px;
-            padding: 22px 35px;
+            padding: 24px 40px;
             font-weight: 700;
-            box-shadow: 0 8px 25px rgba(0, 51, 160, 0.4);
-            min-width: 400px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 16px rgba(198, 40, 40, 0.24), 0 2px 4px rgba(198, 40, 40, 0.16);
+            min-width: 420px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .consejo {
@@ -244,36 +258,44 @@
         }
 
         .gabinete {
-            background: linear-gradient(135deg, #D52B1E 0%, #A02318 100%);
+            background: linear-gradient(135deg, #003087 0%, #002466 100%);
             color: white;
             font-size: 16px;
             font-weight: 700;
-            box-shadow: 0 6px 20px rgba(213, 43, 30, 0.4);
+            letter-spacing: 0.2px;
+            box-shadow: 0 3px 12px rgba(0, 48, 135, 0.2), 0 1px 3px rgba(0, 48, 135, 0.15);
             min-width: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nivel-unidad {
-            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
-            color: #01579B;
-            border: 2px solid #0078D4;
-            box-shadow: 0 3px 12px rgba(0, 120, 212, 0.2);
-            font-size: 12px;
+            background: linear-gradient(135deg, #4A90C8 0%, #2E6DA4 100%);
+            color: #FFFFFF;
+            border: 2px solid #1B5A8A;
+            box-shadow: 0 3px 8px rgba(0, 81, 165, 0.2), 0 2px 4px rgba(0, 81, 165, 0.15);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
         }
 
         .nivel-departamento {
-            background: linear-gradient(135deg, #005EB8 0%, #0033A0 100%);
+            background: linear-gradient(135deg, #0051A5 0%, #003087 100%);
             color: white;
             font-weight: 700;
-            box-shadow: 0 4px 15px rgba(0, 94, 184, 0.4);
-            font-size: 14px;
+            letter-spacing: 0.2px;
+            box-shadow: 0 3px 12px rgba(0, 81, 165, 0.2), 0 1px 3px rgba(0, 81, 165, 0.15);
+            font-size: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nivel-subdepartamento {
-            background: linear-gradient(135deg, #0078D4 0%, #005EB8 100%);
+            background: linear-gradient(135deg, #006BB8 0%, #0051A5 100%);
             color: white;
             font-weight: 600;
-            box-shadow: 0 3px 12px rgba(0, 120, 212, 0.3);
-            font-size: 12px;
+            letter-spacing: 0.2px;
+            box-shadow: 0 2px 8px rgba(0, 107, 184, 0.18), 0 1px 2px rgba(0, 107, 184, 0.12);
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nivel-oas {
@@ -441,23 +463,29 @@
         }
 
         .jefatura-icon {
-            display: inline-block;
-            margin-left: 6px;
-            font-size: 16px;
-            opacity: 0.9;
-            transition: all 0.3s ease;
+            display: block;
+            margin: 4px auto 0;
+            width: fit-content;
+            font-size: 11px;
+            opacity: 0.4;
+            transition: all 0.25s ease;
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.25);
-            vertical-align: middle;
+            padding: 2px 4px;
+            border-radius: 2px;
+            background: transparent;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .node:hover .jefatura-icon {
+            opacity: 0.75;
         }
 
         .jefatura-icon:hover {
-            opacity: 1;
-            transform: scale(1.15) translateY(-1px);
-            background: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            opacity: 1 !important;
+            transform: scale(1.15);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
         .jefatura-icon:active {
@@ -725,26 +753,6 @@
             </div>
         </div>
 
-        <!-- Estadísticas -->
-        <div class="stats-bar">
-            <div class="stat">
-                <div class="stat-number">8</div>
-                <div class="stat-label">Departamentos</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">28</div>
-                <div class="stat-label">Subdepartamentos</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">70+</div>
-                <div class="stat-label">Unidades</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">12</div>
-                <div class="stat-label">OAS</div>
-            </div>
-        </div>
-
         <div class="orgchart">
             <!-- Estructura superior -->
             <div class="top-structure">
@@ -760,26 +768,44 @@
                     <!-- Eje central: Secretario - Gabinete -->
                     <div class="node secretario" data-info="Máxima autoridad regional de salud" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
                         Secretario Regional Ministerial de Salud
-                        <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SEREMI DE SALUD REGIÓN DE LA ARAUCANÍA', 'ANDRÉS RICARDO CUYUL SOTO');" title="Ver jefatura">🪪</span>
+                        <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SEREMI DE SALUD REGIÓN DE LA ARAUCANÍA', 'ANDRÉS RICARDO CUYUL SOTO');" title="Ver jefatura">ⓘ</span>
                     </div>
                     
                     <div class="connector"></div>
                     
                     <div class="node gabinete collapsible" data-info="Coordinación ejecutiva" onclick="toggleSection('gabinete-units');">
                         Gabinete
-                        <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('GABINETE', 'FERNANDO ANGELO CANDIA JARAMILLO');" title="Ver jefatura">🪪</span>
+                        <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('GABINETE', 'FERNANDO ANGELO CANDIA JARAMILLO');" title="Ver jefatura">ⓘ</span>
                         <span class="link-icon" onclick="event.stopPropagation(); window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank');" title="Ver resolución oficial">📄</span>
                     </div>
                     
                     <div class="collapse-content" id="gabinete-units">
                         <div class="connector"></div>
                         <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 15px; max-width: 1200px;">
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Auditoría</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Gestión de Riesgo en Emergencias y Desastres</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Comunicaciones y Relaciones Públicas</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de OIRS</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Estudios y Análisis Estadístico</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Control de Gestión</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Auditoría
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE AUDITORIA', 'RUBEN QUINTREL COÑA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Gestión de Riesgo en Emergencias y Desastres
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('COORDINADOR(A) UNIDAD DE GESTION DE RIESGOS EN EMERGENCIAS Y DESASTRES', 'CECIA TRONCOSO URRUTIA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Comunicaciones y Relaciones Públicas
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE COMUNICACIONES Y RELACIONES PÚBLICAS', 'NATACHA ORTIZ PULGAR');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de OIRS
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE OIRS', 'PAOLA EPUÑAN WIEMBERG');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Estudios y Análisis Estadístico
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFE UNIDAD DE ESTUDIOS Y ANALISIS ESTADISTICO', 'NADIALETT VENEGAS OLATE');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Control de Gestión
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFE UNIDAD DE CONTROL DE GESTION', 'MARTA VILLEGAS CORTEZ');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -796,7 +822,7 @@
                     <div class="department-title">
                         <div class="node nivel-departamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
                             Departamento Jurídico
-                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO JURÍDICO', 'WERNER ALEJANDRO SCHALCHLI SALAS');" title="Ver jefatura">🪪</span>
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO JURÍDICO', 'WERNER ALEJANDRO SCHALCHLI SALAS');" title="Ver jefatura">ⓘ</span>
                             <span class="link-icon" onclick="event.stopPropagation(); window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank');" title="Ver resolución oficial">📄</span>
                         </div>
                     </div>
@@ -807,26 +833,62 @@
                     <div class="department-title">
                         <div class="node nivel-departamento collapsible" onclick="toggleSection('compin');">
                             Comisión Regional de Medicina Preventiva e Invalidez
-                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('COMISIÓN REGIONAL DE MEDICINA PREVENTIVA E INVALIDEZ', 'DANIELA NATALIA GARCÍA CONCHA');" title="Ver jefatura">🪪</span>
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('COMISIÓN REGIONAL DE MEDICINA PREVENTIVA E INVALIDEZ', 'DANIELA NATALIA GARCÍA CONCHA');" title="Ver jefatura">ⓘ</span>
                             <span class="link-icon" onclick="event.stopPropagation(); window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank');" title="Ver resolución oficial">📄</span>
                         </div>
                     </div>
                     <div class="collapse-content" id="compin">
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">COMPIN Cautín</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Contraloría Médica</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Beneficios de Seguridad Social y Discapacidad</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Licencias Médicas</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Subsidios</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Fiscalización</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                COMPIN Cautín
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('COMPIN CAUTÍN', 'DANIELA NATALIA GARCÍA CONCHA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Contraloría Médica
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE CONTRALORÍA MÉDICA', 'MARIANELA JARA BAEZA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Beneficios de Seguridad Social y Discapacidad
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE BENEFICIOS DE SEGURIDAD SOCIAL Y DISCAPACIDAD', 'KARINA FONSECA NAHUELCHEO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Licencias Médicas
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE LICENCIAS MEDICAS', 'MARIO HENRIQUEZ LUNA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Subsidios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE SUBSIDIOS', 'KARINA CURILLAN CAYUN');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Fiscalización
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE FISCALIZACION', 'RAMON SALAS TERAN');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">COMPIN Malleco</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Médico Contralor</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Licencias Médicas</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Beneficios de Seguridad Social y Discapacidad</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Subsidios</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Fiscalización</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                COMPIN Malleco
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('COMPIN MALLECO', 'LUIS QUINTANA CID');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Médico Contralor
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('MEDICO CONTRALOR', 'CARLOS ROJAS STUBING');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Licencias Médicas
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE LICENCIAS MEDICAS', 'ISABEL MARDONES RUIZ');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Beneficios de Seguridad Social y Discapacidad
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE BENEFICIOS DE SEGURIDAD SOCIAL Y DISCAPACIDAD', 'YAMIL ISMAIL NUÑEZ');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Subsidios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE SUBSIDIOS', 'PAULETTE SOTO RUIZ');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Fiscalización
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE FISCALIZACION', 'PABLO OSSES SANDOVAL');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -836,44 +898,106 @@
                     <div class="department-title">
                         <div class="node nivel-departamento collapsible" onclick="toggleSection('accion');">
                             Departamento de Acción Sanitaria
-                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE ACCIÓN SANITARIA', 'LORETO IRENE URIBE BOISIER');" title="Ver jefatura">🪪</span>
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE ACCIÓN SANITARIA', 'LORETO IRENE URIBE BOISIER');" title="Ver jefatura">ⓘ</span>
                             <span class="link-icon" onclick="event.stopPropagation(); window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank');" title="Ver resolución oficial">📄</span>
                         </div>
                     </div>
                     <div class="collapse-content" id="accion">
                         <div class="sub-section">
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Lautaro</div>
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Imperial</div>
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Pitrufquén</div>
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Loncoche</div>
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Villarrica</div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Lautaro
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA OFICINA ACCION SANITARIA LAUTARO', 'EGLA CARRASCO PINTO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Imperial
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA OFICINA ACCION SANITARIA IMPERIAL', 'HENRY SEPULVEDA OPAZO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Pitrufquén
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA OFICINA ACCION SANITARIA PITRUFQUEN', 'GASTON VENEGAS MARTINEZ');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Loncoche
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA OFICINA ACCION SANITARIA LONCOCHE', 'URSULA BREVIS OYARZUN');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Villarrica
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA OFICINA ACCION SANITARIA VILLARRICA', 'SERGIO FERNANDEZ RICCI');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento Salud Ambiental y Laboral</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Agua</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Evaluación Ambiental y Calidad del Aire</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Residuos</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Salud Ocupacional</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Locales de Uso Público</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento Salud Ambiental y Laboral
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA SUBDEPARTAMENTO SALUD AMBIENTAL Y LABORAL', 'JOSE LUIS FERREIRA REBOLLEDO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Agua
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE AGUA', 'LAURA MANRIQUEZ CASTRO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Evaluación Ambiental y Calidad del Aire
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE EVALUACION AMBIENTAL Y CALIDAD DEL AIRE', 'STEPHANIE HENRIQUEZ IMIGO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Residuos
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE RESIDUOS', 'PABLO CABEZAS DEL CAMPO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Salud Ocupacional
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE SALUD OCUPACIONAL', 'WALDO RAMIREZ CASTILLO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Locales de Uso Público
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE LOCALES DE USO PUBLICO', 'ELIAS SANHUEZA MORALES');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Zoonosis y Vectores</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Zoonosis y Vectores
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA SUBDEPARTAMENTO DE ZOONOSIS Y VECTORES', 'IVETTE VILLABLANCA RIVERA');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Inocuidad Alimentaria</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Comercio Exterior</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Fiscalización y Auditoría</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Formalización</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Inocuidad Alimentaria
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA SUBDEPARTAMENTO DE INOCUIDAD ALIMENTARIO', 'CAROL SOLIS DOMKE');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Comercio Exterior
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE COMERCIO EXTERIOR', 'EDGARDO SANCHEZ ALARCON');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Fiscalización y Auditoría
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE FISCALIZACION Y AUDITORIA', 'CAROL SOLIS DOMKE');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Formalización
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE FORMALIZACION', 'EDGARDO SANCHEZ ALARCON', 'JEFATURA (S)');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepto. de Profesiones Médicas, Paramédicas y Farmacias</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepto. de Profesiones Médicas, Paramédicas y Farmacias
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA SUBDEPTO DE PROFESIONES MEDICAS PARAMEDICAS Y FARMACIA', 'MARITZA FLANDEZ LEAL');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepto. de Laboratorio Salud Pública Amb. y Lab.</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Laboratorio de Microbiología</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Laboratorio de Química</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Toma de Muestras</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Análisis de Sustancias Ilícitas</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepto. de Laboratorio Salud Pública Amb. y Lab.
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA SUBDEPTO. DE LABORATORIO SALUD PUBLICA AMB. Y LAB.', 'CRISTINA ZUÑIGA IBAÑEZ');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Laboratorio de Microbiología
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE LABORATORIO DE MICROBIOLOGIA', 'MYRIAM CURILLAN CAYUN');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Laboratorio de Química
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE LABORATORIO DE QUIMICA', 'RICARDO RAMIREZ HORMAZABAL');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Toma de Muestras
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE TOMA DE MUESTRAS', 'PABLO LEAL MELLA');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -884,37 +1008,91 @@
                         <div class="node nivel-departamento collapsible" onclick="toggleSection('admin');">
                             <div>Departamento de Administración y Finanzas</div>
                             <div style="margin-top: 4px;">
-                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE ADMINISTRACIÓN Y FINANZAS', 'JESSICA BULNES COLLIO', 'JEFATURA (S)');" title="Ver jefatura">🪪</span>
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE ADMINISTRACIÓN Y FINANZAS', 'JESSICA BULNES COLLIO', 'JEFATURA (S)');" title="Ver jefatura">ⓘ</span>
                                 <span class="link-icon" onclick="event.stopPropagation(); window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank');" title="Ver resolución oficial">📄</span>
                             </div>
                         </div>
                     </div>
                     <div class="collapse-content" id="admin">
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Administración Interna</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Adquisiciones</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Oficina de Partes</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Bodega</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Egresos</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Inventario</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Administración Interna
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO ADMINISTRACION INTERNA', 'ISOLDE GOTSCHLICH FLORES', 'JEFATURA (S)');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Adquisiciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE ADQUISICIONES', 'ANGELA BARRA HERRERA', 'JEFATURA (S)');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Oficina de Partes
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD OFICINA DE PARTES', 'SOLEDAD CONTRERAS MORA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Bodega
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE BODEGA', 'GERSONNS MATUS MATUS');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Egresos
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE EGRESOS', 'JENNY LUENGO ROJAS');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Inventario
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE INVENTARIO', 'FABIAN CAYUQUEO PICHUNMAN');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Finanzas</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Contabilidad</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Presupuesto</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Tesorería</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Finanzas
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO FINANZAS', 'CRISTIAN CRISOSTOMO MUÑOZ');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Contabilidad
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE CONTABILIDAD', 'ITALO CANARIO MEDINA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Presupuesto
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE PRESUPUESTO', 'JORGE LEON ROMERO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Tesorería
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE TESORERIA', 'MAURICIO CRUZ RIVEROS');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento Tecnologías de la Información y Comunicaciones</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Tecnologías de la Información y Comunicaciones</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Transparencia Activa</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Gestión Documental</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento Tecnologías de la Información y Comunicaciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO TIC', 'RODRIGO COLLIPAL ZAPATA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Tecnologías de la Información y Comunicaciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD TIC', 'JORGE THOMPSON COSLOSKY');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Transparencia Activa
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD TRANSPARENCIA', 'RODRIGO COLLIPAL ZAPATA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Gestión Documental
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD GESTION DOCUMENTAL', 'SUBITANIA LLAUPE TRUREO');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento Servicios Generales</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Administración de Servicios</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Administración de Convenios</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Infraestructura</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento Servicios Generales
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO SERVICIOS GENERALES', 'KATHERINA GARCIA DEIK');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Administración de Servicios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD ADMINISTRACION SERVICIOS', 'MARCELA QUIÑILEN CANCINO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Administración de Convenios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD ADMINISTRACION CONVENIOS', 'ANGELA LLANQUINAO DEL VALLE', 'JEFATURA (S)');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Infraestructura
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD INFRAESTRUCTURA', 'MATIAS BRAVO OSORIO');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -924,19 +1102,28 @@
                     <div class="department-title">
                         <div class="node nivel-departamento collapsible" onclick="toggleSection('personas');">
                             Departamento de Gestión y Desarrollo de Personas
-                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE GESTIÓN Y DESARROLLO DE PERSONAS', 'LILIBETH ELISA NAVARRETE MARTÍNEZ');" title="Ver jefatura">🪪</span>
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE GESTIÓN Y DESARROLLO DE PERSONAS', 'LILIBETH ELISA NAVARRETE MARTÍNEZ');" title="Ver jefatura">ⓘ</span>
                             <span class="link-icon" onclick="event.stopPropagation(); window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank');" title="Ver resolución oficial">📄</span>
                         </div>
                     </div>
                     <div class="collapse-content" id="personas">
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Personal y Remuneraciones</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Personal y Remuneraciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO PERSONAL Y REMUNERACIONES', 'MARGARITA MARIN CONTRERAS');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Desarrollo de Personas y Bienestar</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Desarrollo de Personas y Bienestar
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO DESARROLLO PERSONAS', 'CATHERINE ROJAS UNZUETA');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Prevención de Riesgos</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Prevención de Riesgos
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO PREVENCION RIESGOS', 'JUAN EDUARDO LEAL CIFUENTES');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -946,31 +1133,64 @@
                     <div class="department-title">
                         <div class="node nivel-departamento collapsible" onclick="toggleSection('saludpublica');">
                             Departamento de Salud Pública y Planificación Sanitaria
-                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE SALUD PÚBLICA Y PLANIFICACIÓN SANITARIA', 'GONZALO NICOLÁS INFANTE GRANDÓN');" title="Ver jefatura">🪪</span>
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE SALUD PÚBLICA Y PLANIFICACIÓN SANITARIA', 'GONZALO NICOLÁS INFANTE GRANDÓN');" title="Ver jefatura">ⓘ</span>
                             <span class="link-icon" onclick="event.stopPropagation(); window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank');" title="Ver resolución oficial">📄</span>
                         </div>
                     </div>
                     <div class="collapse-content" id="saludpublica">
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Programas Sanitarios</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Prevención de Enfermedades No Transmisibles</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Salud Sexual, Salud Reproductiva y Género</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Programas Sanitarios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO PROGRAMAS SANITARIOS', 'CAMILO FUENTES FICA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Prevención de Enfermedades No Transmisibles
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD PREVENCION ENFERMEDADES', 'PAULA VALDES LUPAI');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Salud Sexual, Salud Reproductiva y Género
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD SALUD SEXUAL', 'MONICA DIAZ AGUILERA');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Inmunizaciones</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Inmunizaciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO INMUNIZACIONES', 'KISSY ISMAIL SANDOVAL');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Relaciones Interculturales y Salud</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Relaciones Interculturales y Salud
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO RELACIONES INTERCULTURALES', 'JEANETTE HENRIQUEZ BARAHONA');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Epidemiología</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Vigilancia de Enfermedades No Transmisibles y Vigilancia Ambiental</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Vigilancia de Enfermedades Transmisibles</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Epidemiología
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO EPIDEMIOLOGIA', 'MARIA JOSE CARRASCO GAJARDO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Vigilancia de Enfermedades No Transmisibles y Vigilancia Ambiental
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD VIGILANCIA NO TRANSMISIBLES', 'NOLBERTO SILVA VERA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Vigilancia de Enfermedades Transmisibles
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD VIGILANCIA TRANSMISIBLES', 'ELIZABETH VALENZUELA SEPULVEDA');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Subdepartamento de Políticas Públicas Saludables</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Promoción de la Salud y Participación Ciudadana</div>
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Unidad de Nutrición y Programas Alimentarios</div>
+                            <div class="node nivel-subdepartamento" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Políticas Públicas Saludables
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO POLITICAS PUBLICAS', 'JESSICA ESCOBAR CID');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Promoción de la Salud y Participación Ciudadana
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD PROMOCION SALUD', 'ANDREA BRAVO ZUÑIGA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Unidad de Nutrición y Programas Alimentarios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD NUTRICION', 'ARLETTE KILMAN CARCAMO');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -980,27 +1200,48 @@
                     <div class="department-title">
                         <div class="node nivel-departamento collapsible" onclick="toggleSection('malleco');">
                             Oficina Provincial Malleco
-                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OFICINA PROVINCIAL MALLECO', 'MARÍA ISABEL MANRÍQUEZ HERNÁNDEZ');" title="Ver jefatura">🪪</span>
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OFICINA PROVINCIAL MALLECO', 'MARÍA ISABEL MANRÍQUEZ HERNÁNDEZ');" title="Ver jefatura">ⓘ</span>
                             <span class="link-icon" onclick="event.stopPropagation(); window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank');" title="Ver resolución oficial">📄</span>
                         </div>
                     </div>
                     <div class="collapse-content" id="malleco">
                         <div class="sub-section">
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Coordinación Administrativa</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Coordinación Administrativa
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('COORDINACION ADMINISTRATIVA', 'VIVIANA VIVANCO MONTOYA');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Sección Epidemiología y PNI</div>
+                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                Sección Epidemiología
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SECCION EPIDEMIOLOGIA', 'DANIELA ZANHUEZA SANZANA');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                         <div class="sub-section">
-                            <div class="node nivel-unidad" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">Sección Promoción de la Salud</div>
-                        </div>
-                        <div class="sub-section">
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Angol</div>
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Collipulli</div>
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Lonquimay</div>
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Curacautín</div>
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Traiguén</div>
-                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">OAS Victoria</div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Angol
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OAS ANGOL', 'PAOLA NOVOA LAGOS');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Collipulli
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OAS COLLIPULLI', 'HECTOR CIFUENTES ESCALONA');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Lonquimay
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OAS LONQUIMAY', 'KARLA FUENTES CORONADO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Curacautín
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OAS CURACAUTIN', 'MIRIAM ARIAS DURAN');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Traiguén
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OAS TRAIGUEN', 'JULIO DUFEY CASTRO');" title="Ver jefatura">ⓘ</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=AO049&pagina=54266309', '_blank')" style="cursor: pointer;">
+                                OAS Victoria
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OAS VICTORIA', 'VERONICA GAETE VARGAS');" title="Ver jefatura">ⓘ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1010,7 +1251,7 @@
 
         <!-- Tips -->
         <p style="text-align: center; margin-top: 25px; color: #666; font-size: 14px;">
-            💡 <strong>Tip:</strong> Haz clic en los departamentos para expandir/colapsar. Haz clic en el icono 🪪 para ver las jefaturas. Usa la búsqueda para encontrar unidades específicas.
+            💡 <strong>Tip:</strong> Haz clic en los departamentos para expandir/colapsar. Haz clic en el icono ️ para ver las jefaturas. Usa la búsqueda para encontrar unidades específicas.
         </p>
 
         <p style="text-align: center; margin-top: 35px; color: #999; font-size: 12px;">
@@ -1180,8 +1421,8 @@
         window.addEventListener('load', () => {
             expandAll();
             
-            // Establecer zoom inicial al 70% para visualizar todo el organigrama
-            zoomLevel = 0.7;
+            // Establecer zoom inicial al 85% para mejor visualización
+            zoomLevel = 0.85;
             const container = document.getElementById('orgContainer');
             container.style.transform = `scale(${zoomLevel})`;
             container.style.transformOrigin = 'top center';
@@ -1198,7 +1439,7 @@
             console.log('✅ Organigrama SEREMI completo cargado');
             console.log('📊 Total unidades: 70+');
             console.log('🔍 Usa la búsqueda para encontrar unidades');
-            console.log('🪪 Haz clic en el icono de identificación para ver jefaturas');
+            console.log('️ Haz clic en el icono de identificación para ver jefaturas');
         });
     </script>
     </div>
