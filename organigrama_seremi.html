@@ -1,0 +1,1502 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organigrama SEREMI de Salud - Completo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow: auto;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #003087 0%, #0051A5 50%, #006BB8 100%);
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .page-wrapper {
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: stretch;
+            width: 320px;
+        }
+
+        .controls-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.08);
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 13px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.08);
+            border-color: rgba(0,0,0,0.12);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #C62828 0%, #B71C1C 100%);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #D32F2F 0%, #C62828 100%);
+        }
+
+        .search-container {
+            width: 100%;
+            display: flex;
+            justify-content: stretch;
+        }
+
+        .search-box {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 40px 50px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+            min-width: 2500px;
+            width: fit-content;
+            margin: 0 auto;
+            transform-origin: top center;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            animation: fadeInDown 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .header-logo {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        .header h1 {
+            color: #003087;
+            font-size: 30px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: none;
+        }
+
+        .header .subtitle {
+            color: #555;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0 30px 0;
+            padding: 15px;
+            background: rgba(0, 51, 160, 0.08);
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0033A0;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .orgchart {
+            position: relative;
+            padding: 20px 0;
+            width: 100%;
+        }
+
+        .level-top {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .level-second {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .departments-row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 25px;
+            margin: 30px 0;
+            padding-bottom: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .departments-row .department-box {
+            flex: 0 0 auto;
+            width: 320px;
+        }
+
+        .node {
+            background: white;
+            padding: 15px 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            text-align: center;
+            animation: slideUp 0.6s ease;
+            font-size: 13px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .node:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+            z-index: 10;
+        }
+
+        .node.highlight {
+            animation: pulse 0.6s ease;
+            border: 3px solid #FFD700;
+        }
+
+        .secretario {
+            background: linear-gradient(135deg, #C62828 0%, #9D1F1F 100%);
+            color: white;
+            font-size: 17px;
+            padding: 24px 40px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 16px rgba(198, 40, 40, 0.24), 0 2px 4px rgba(198, 40, 40, 0.16);
+            min-width: 420px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .consejo {
+            background: linear-gradient(135deg, #ECEFF1 0%, #CFD8DC 100%);
+            color: #263238;
+            border: 2px solid #90A4AE;
+            font-weight: 600;
+            min-width: 180px;
+        }
+
+        .gabinete {
+            background: linear-gradient(135deg, #003087 0%, #002466 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            box-shadow: 0 3px 12px rgba(0, 48, 135, 0.2), 0 1px 3px rgba(0, 48, 135, 0.15);
+            min-width: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nivel-unidad {
+            background: linear-gradient(135deg, #4A90C8 0%, #2E6DA4 100%);
+            color: #FFFFFF;
+            border: 2px solid #1B5A8A;
+            box-shadow: 0 3px 8px rgba(0, 81, 165, 0.2), 0 2px 4px rgba(0, 81, 165, 0.15);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .nivel-departamento {
+            background: linear-gradient(135deg, #0051A5 0%, #003087 100%);
+            color: white;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            box-shadow: 0 3px 12px rgba(0, 81, 165, 0.2), 0 1px 3px rgba(0, 81, 165, 0.15);
+            font-size: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nivel-subdepartamento {
+            background: linear-gradient(135deg, #006BB8 0%, #0051A5 100%);
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            box-shadow: 0 2px 8px rgba(0, 107, 184, 0.18), 0 1px 2px rgba(0, 107, 184, 0.12);
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nivel-oas {
+            background: linear-gradient(135deg, #005EB8 0%, #0033A0 100%);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(139,21,56,0.3);
+            font-size: 12px;
+        }
+
+        .connector {
+            width: 3px;
+            height: 18px;
+            background: linear-gradient(to bottom, #8B1538, #B91D47);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .connector::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: #8B1538;
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
+
+        .level-top {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .top-structure {
+            position: relative;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 60px 0 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-axis {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .consejo-absolute {
+            position: absolute;
+            left: -190px;
+            top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .horizontal-line-dashed {
+            width: 390px;
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                #9E9E9E 0px,
+                #9E9E9E 5px,
+                transparent 5px,
+                transparent 10px
+            );
+            margin-left: 0;
+        }
+
+        .horizontal-line {
+            height: 3px;
+            background: linear-gradient(to right, #8B1538, #B91D47, #8B1538);
+            margin: 25px auto;
+            position: relative;
+            width: 100%;
+            max-width: 2400px;
+        }
+
+        .department-box {
+            background: rgba(248,248,248,0.95);
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .department-box:hover {
+            background: rgba(255,255,255,1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .department-box::before {
+            content: '';
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            width: 2px;
+            height: 28px;
+            background: linear-gradient(to bottom, #8B1538, #ccc);
+            transform: translateX(-50%);
+            display: block;
+        }
+
+        .department-title {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .sub-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 12px 0;
+            padding: 12px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            border-left: 4px solid #8B1538;
+        }
+
+        .collapsible {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+
+        .collapsible::after {
+            content: '▼';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        .collapsible.collapsed::after {
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        .link-icon {
+            display: inline-block;
+            margin-left: 6px;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .link-icon:hover {
+            opacity: 1;
+            transform: scale(1.2);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .consejo .link-icon {
+            background: rgba(0, 0, 0, 0.05);
+            color: #263238;
+            filter: none;
+        }
+
+        .consejo .link-icon:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .jefatura-icon {
+            display: block;
+            margin: 4px auto 0;
+            width: fit-content;
+            font-size: 11px;
+            opacity: 0.4;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 2px;
+            background: transparent;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .node:hover .jefatura-icon {
+            opacity: 0.75;
+        }
+
+        .jefatura-icon:hover {
+            opacity: 1 !important;
+            transform: scale(1.15);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .jefatura-icon:active {
+            transform: scale(1.05);
+        }
+
+        .collapse-content {
+            max-height: 5000px;
+            overflow: visible;
+            transition: max-height 0.5s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .collapse-content.hidden {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .legend {
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f9f9f9 0%, #e9e9e9 100%);
+            border-radius: 12px;
+            border-left: 5px solid #8B1538;
+        }
+
+        .legend h3 {
+            color: #8B1538;
+            margin-bottom: 18px;
+            font-size: 18px;
+        }
+
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            transition: transform 0.2s ease;
+            font-size: 13px;
+        }
+
+        .legend-item:hover {
+            transform: translateX(5px);
+        }
+
+        .legend-box {
+            width: 35px;
+            height: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .tooltip {
+            position: fixed;
+            background: rgba(0,0,0,0.95);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            pointer-events: none;
+            z-index: 2000;
+            display: none;
+            max-width: 300px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            animation: fadeIn 0.2s ease;
+        }
+
+        .jefatura-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 0;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            z-index: 3000;
+            display: none;
+            max-width: 550px;
+            width: 90%;
+            overflow: hidden;
+            border: 3px solid #0033A0;
+            animation: modalSlideIn 0.3s ease forwards;
+        }
+
+        .jefatura-modal.show {
+            display: block;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #0033A0 0%, #005EB8 100%);
+            color: white;
+            padding: 20px 25px;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px 25px;
+        }
+
+        .jefatura-info {
+            text-align: center;
+        }
+
+        .jefatura-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .jefatura-cargo {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .jefatura-nombre {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0033A0;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2999;
+            display: none;
+            backdrop-filter: blur(3px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        @media print {
+            .controls, .search-container, .btn { display: none; }
+            body { background: white; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            .header h1 { font-size: 22px; }
+            .controls { position: relative; top: 0; right: 0; margin-bottom: 20px; }
+            .controls-row { justify-content: center; }
+            .search-container { justify-content: center; }
+            .departments-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+    <!-- Controles -->
+    <div class="controls">
+        <div class="controls-row">
+            <button class="btn btn-primary" onclick="expandAll()">📂 Expandir Todo</button>
+            <button class="btn" onclick="collapseAll()">📁 Colapsar Todo</button>
+        </div>
+        <div class="controls-row">
+            <button class="btn" onclick="zoomIn()">🔍 Zoom +</button>
+            <button class="btn" onclick="zoomOut()">🔍 Zoom -</button>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="🔎 Buscar unidad..." onkeyup="buscar(this.value)">
+        </div>
+    </div>
+
+    <div class="container" id="orgContainer">
+        <div class="header">
+            <div class="header-text">
+                <h1>ORGANIGRAMA INSTITUCIONAL</h1>
+                <p class="subtitle">Secretaría Regional Ministerial de Salud - Región de La Araucanía</p>
+            </div>
+        </div>
+
+        <div class="orgchart">
+            <!-- Estructura superior -->
+            <div class="top-structure">
+                <div class="main-axis">
+                    <!-- Consejo Asesor (posición absoluta a la izquierda) -->
+                    <div class="consejo-absolute">
+                        <div class="node consejo" data-info="Órgano consultivo de la Secretaría" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                            Consejo Asesor
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                        <div class="horizontal-line-dashed"></div>
+                    </div>
+
+                    <!-- Eje central: Secretario -->
+                    <div class="node secretario" data-info="Máxima autoridad regional de salud" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                        Secretario Regional Ministerial de Salud
+                        <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SEREMI DE SALUD REGIÓN DE LA ARAUCANÍA', 'ANDRÉS RICARDO CUYUL SOTO');" title="Ver jefatura">ⓘ</span>
+                        <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                    </div>
+                    
+                    <div class="connector"></div>
+                    
+                    <!-- Unidades directas de SEREMI -->
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin: 20px 0; max-width: 1400px;">
+                        <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                            Unidad de Auditoría Interna
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE AUDITORIA INTERNA', 'RUBEN QUINTREL COÑA');" title="Ver jefatura">ⓘ</span>
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                        <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                            Unidad de Gestión del Riesgo en Emergencia y Desastres
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE GESTION DEL RIESGO EN EMERGENCIA Y DESASTRES', 'CECIA TRONCOSO URRUTIA');" title="Ver jefatura">ⓘ</span>
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                        <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                            Unidad de Estudios y Análisis Estadístico
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE ESTUDIOS Y ANALISIS ESTADISTICO', 'NADIALETT VENEGAS OLATE');" title="Ver jefatura">ⓘ</span>
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                        <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                            Secretaria
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SECRETARIA SEREMI', 'CARMEN AGUILERA MELLADO');" title="Ver jefatura">ⓘ</span>
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                    </div>
+
+                    <div class="connector"></div>
+                    
+                    <!-- Gabinete separado -->
+                    <div class="node gabinete collapsible" data-info="Coordinación ejecutiva" onclick="toggleSection('gabinete-units');">
+                        Gabinete
+                        <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('GABINETE', 'FERNANDO ANGELO CANDIA JARAMILLO');" title="Ver jefatura">ⓘ</span>
+                        <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                    </div>
+                    
+                    <div class="collapse-content" id="gabinete-units">
+                        <div class="connector"></div>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 15px; max-width: 1200px;">
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Comunicaciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE COMUNICACIONES', 'NATACHA ORTIZ PULGAR');" title="Ver jefatura">ⓘ</span>
+                                <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Control de Gestión
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFE UNIDAD DE CONTROL DE GESTION', 'MARTA VILLEGAS CORTEZ');" title="Ver jefatura">ⓘ</span>
+                                <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Oficina de Información Reclamos y Sugerencias (OIRS)
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE OIRS', 'PAOLA EPUÑAN WIEMBERG');" title="Ver jefatura">ⓘ</span>
+                                <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="connector"></div>
+            <div class="horizontal-line"></div>
+
+            <!-- Fila de Departamentos -->
+            <div class="departments-row">
+                
+                <!-- 1. Departamento Asesoría Jurídica -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                            Departamento Asesoría Jurídica
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO ASESORÍA JURÍDICA', 'WERNER ALEJANDRO SCHALCHLI SALAS');" title="Ver jefatura">ⓘ</span>
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. COMPIN -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('compin');">
+                            Comisión Regional de Medicina Preventiva e Invalidez
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('COMISIÓN REGIONAL DE MEDICINA PREVENTIVA E INVALIDEZ', 'DANIELA NATALIA GARCÍA CONCHA');" title="Ver jefatura">ⓘ</span>
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="compin">
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                SUBCOMISIÓN COMPIN Cautín
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBCOMISION COMPIN CAUTÍN', 'DANIELA NATALIA GARCÍA CONCHA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Contraloría Médica
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE CONTRALORÍA MÉDICA', 'MARIANELA JARA BAEZA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Beneficios de Seguridad Social y Discapacidad
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE BENEFICIOS DE SEGURIDAD SOCIAL Y DISCAPACIDAD', 'KARINA FONSECA NAHUELCHEO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Licencias Médicas
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE LICENCIAS MEDICAS', 'MARIO HENRIQUEZ LUNA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Subsidios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE SUBSIDIOS', 'KARINA CURILLAN CAYUN');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Fiscalización
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE FISCALIZACION', 'RAMON SALAS TERAN');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                SUBCOMISIÓN COMPIN Malleco
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBCOMISION COMPIN MALLECO', 'LUIS QUINTANA CID');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Contraloría Médica
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('MEDICO CONTRALOR', 'CARLOS ROJAS STUBING');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Beneficios de Seguridad Social y Discapacidad
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE BENEFICIOS DE SEGURIDAD SOCIAL Y DISCAPACIDAD', 'YAMIL ISMAIL NUÑEZ');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Licencias Médicas
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE LICENCIAS MEDICAS', 'ISABEL MARDONES RUIZ');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Subsidios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE SUBSIDIOS', 'PAULETTE SOTO RUIZ');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Fiscalización
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE FISCALIZACION', 'PABLO OSSES SANDOVAL');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Departamento de Acción Sanitaria -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('accion');">
+                            Departamento de Acción Sanitaria
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE ACCIÓN SANITARIA', 'LORETO IRENE URIBE BOISIER');" title="Ver jefatura">ⓘ</span>
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="accion">
+                        <div class="sub-section">
+                            <div class="node nivel-oas" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                OAS Lautaro
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA OFICINA ACCION SANITARIA LAUTARO', 'EGLA CARRASCO PINTO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                OAS Imperial
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA OFICINA ACCION SANITARIA IMPERIAL', 'HENRY SEPULVEDA OPAZO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                OAS Pitrufquén
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA OFICINA ACCION SANITARIA PITRUFQUEN', 'GASTON VENEGAS MARTINEZ');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                OAS Loncoche
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA OFICINA ACCION SANITARIA LONCOCHE', 'URSULA BREVIS OYARZUN');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                OAS Villarrica
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA OFICINA ACCION SANITARIA VILLARRICA', 'SERGIO FERNANDEZ RICCI');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento Salud Ambiental y Laboral
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA SUBDEPARTAMENTO SALUD AMBIENTAL Y LABORAL', 'JOSE LUIS FERREIRA REBOLLEDO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Agua
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE AGUA', 'LAURA MANRIQUEZ CASTRO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Evaluación Ambiental y Calidad del Aire
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE EVALUACION AMBIENTAL Y CALIDAD DEL AIRE', 'STEPHANIE HENRIQUEZ IMIGO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Residuos
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE RESIDUOS', 'PABLO CABEZAS DEL CAMPO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Salud Ocupacional
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE SALUD OCUPACIONAL', 'WALDO RAMIREZ CASTILLO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Locales de Uso Público
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE LOCALES DE USO PUBLICO', 'ELIAS SANHUEZA MORALES');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Zoonosis y Vectores
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA SUBDEPARTAMENTO DE ZOONOSIS Y VECTORES', 'IVETTE VILLABLANCA RIVERA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Enfermedades Virales y Bacterianas
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE ENFERMEDADES VIRALES Y BACTERIANAS', 'WALDO ARMSTRONG GALLEGOS');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Enfermedades Parasitarias y Vectoriales
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE ENFERMEDADES PARASITARIAS Y VECTORIALES', 'SUSANA SOTO PAVEZ');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Inocuidad Alimentaria
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA SUBDEPARTAMENTO DE INOCUIDAD ALIMENTARIO', 'CAROL SOLIS DOMKE');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Comercio Exterior
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE COMERCIO EXTERIOR', 'EDGARDO SANCHEZ ALARCON');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Fiscalización y Auditoría
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE FISCALIZACION Y AUDITORIA', 'CAROL SOLIS DOMKE');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Formalización
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE FORMALIZACION', 'EDGARDO SANCHEZ ALARCON', 'JEFATURA (S)');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepto. de Profesiones Médicas, Paramédicas y Farmacias
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA SUBDEPTO DE PROFESIONES MEDICAS PARAMEDICAS Y FARMACIA', 'MARITZA FLANDEZ LEAL');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepto. de Laboratorio Salud Pública Amb. y Lab.
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA SUBDEPTO. DE LABORATORIO SALUD PUBLICA AMB. Y LAB.', 'CRISTINA ZUÑIGA IBAÑEZ');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Laboratorio de Microbiología
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE LABORATORIO DE MICROBIOLOGIA', 'MYRIAM CURILLAN CAYUN');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Laboratorio de Química
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE LABORATORIO DE QUIMICA', 'RICARDO RAMIREZ HORMAZABAL');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Toma de Muestras
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('JEFATURA UNIDAD DE TOMA DE MUESTRAS', 'PABLO LEAL MELLA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Departamento de Administración y Finanzas -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('admin');">
+                            <div>Departamento de Administración y Finanzas</div>
+                            <div style="margin-top: 4px;">
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE ADMINISTRACIÓN Y FINANZAS', 'JESSICA BULNES COLLIO', 'JEFATURA (S)');" title="Ver jefatura">ⓘ</span>
+                                <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="admin">
+                        <div class="sub-section">
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Secretaria
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SECRETARIA DEPTO. ADMINISTRACIÓN Y FINANZAS', 'MARCIA BELTRAN MILLAR');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Finanzas
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO FINANZAS', 'CRISTIAN CRISOSTOMO MUÑOZ');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Presupuesto
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE PRESUPUESTO', 'JORGE LEON ROMERO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Contabilidad
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE CONTABILIDAD', 'ITALO CANARIO MEDINA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Tesorería
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE TESORERIA', 'MAURICIO CRUZ RIVEROS');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Administración Interna
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO ADMINISTRACION INTERNA', 'ISOLDE GOTSCHLICH FLORES', 'JEFATURA (S)');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Adquisiciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE ADQUISICIONES', 'ANGELA BARRA HERRERA', 'JEFATURA (S)');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Bodega
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE BODEGA', 'GERSONNS MATUS MATUS');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Oficina de Partes
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD OFICINA DE PARTES', 'SOLEDAD CONTRERAS MORA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Egresos
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE EGRESOS', 'JENNY LUENGO ROJAS');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Inventario
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD DE INVENTARIO', 'FABIAN CAYUQUEO PICHUNMAN');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Servicios Generales
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO SERVICIOS GENERALES', 'KATHERINA GARCIA DEIK');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Administración de Servicios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD ADMINISTRACION SERVICIOS', 'MARCELA QUIÑILEN CANCINO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Administración de Convenios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD ADMINISTRACION CONVENIOS', 'ANGELA LLANQUINAO DEL VALLE', 'JEFATURA (S)');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Infraestructura
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD INFRAESTRUCTURA', 'MATIAS BRAVO OSORIO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Tecnologías de la Información y Comunicaciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO TIC', 'RODRIGO COLLIPAL ZAPATA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Tecnologías de la Información y Comunicaciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD TIC', 'JORGE THOMPSON COSLOSKY');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Transparencia Activa
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD TRANSPARENCIA', 'RODRIGO COLLIPAL ZAPATA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Gestión Documental
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD GESTION DOCUMENTAL', 'SUBITANIA LLAUPE TRUREO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Departamento de Gestión y Desarrollo de Personas -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('personas');">
+                            Departamento de Gestión y Desarrollo de Personas
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE GESTIÓN Y DESARROLLO DE PERSONAS', 'LILIBETH  NAVARRETE MARTÍNEZ');" title="Ver jefatura">ⓘ</span>
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="personas">
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Personal y Remuneraciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO PERSONAL Y REMUNERACIONES', 'MARGARITA MARIN CONTRERAS');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Desarrollo de Personas y Bienestar
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO DESARROLLO PERSONAS', 'CATHERINE ROJAS UNZUETA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Prevención de Riesgos
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO PREVENCION RIESGOS', 'JUAN EDUARDO LEAL CIFUENTES');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Departamento de Salud Pública y Planificación Sanitaria -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('saludpublica');">
+                            Departamento de Salud Pública y Planificación Sanitaria
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('DEPARTAMENTO DE SALUD PÚBLICA Y PLANIFICACIÓN SANITARIA', 'GONZALO INFANTE GRANDÓN');" title="Ver jefatura">ⓘ</span>
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="saludpublica">
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Epidemiología
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO EPIDEMIOLOGIA', 'MARIA JOSE CARRASCO GAJARDO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Vigilancia de Enfermedades No Transmisibles y Vigilancia Ambiental
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD VIGILANCIA NO TRANSMISIBLES', 'NOLBERTO SILVA VERA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Vigilancia de Enfermedades Transmisibles
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD VIGILANCIA TRANSMISIBLES', 'ELIZABETH VALENZUELA SEPULVEDA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Políticas Públicas Saludables
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO POLITICAS PUBLICAS', 'JESSICA ESCOBAR CID');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Promoción de la Salud y Participación Ciudadana
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD PROMOCION SALUD', 'ANDREA BRAVO ZUÑIGA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Nutrición y Programas Alimentarios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD NUTRICION', 'ARLETTE KILMAN CARCAMO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Programas Sanitarios
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO PROGRAMAS SANITARIOS', 'CAMILO FUENTES FICA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Prevención de Enfermedades No Transmisibles
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD PREVENCION ENFERMEDADES', 'PAULA VALDES LUPAI');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Unidad de Salud Sexual, Salud Reproductiva y Género
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('UNIDAD SALUD SEXUAL', 'MONICA DIAZ AGUILERA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Relaciones Interculturales y Salud
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO RELACIONES INTERCULTURALES', 'JEANETTE HENRIQUEZ BARAHONA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-subdepartamento" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Subdepartamento de Inmunizaciones
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SUBDEPARTAMENTO INMUNIZACIONES', 'KISSY ISMAIL SANDOVAL');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Oficina Provincial Malleco -->
+                <div class="department-box">
+                    <div class="department-title">
+                        <div class="node nivel-departamento collapsible" onclick="toggleSection('malleco');">
+                            Oficina Provincial Malleco
+                            <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OFICINA PROVINCIAL MALLECO', 'MARÍA ISABEL MANRÍQUEZ HERNÁNDEZ');" title="Ver jefatura">ⓘ</span>
+                            <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                        </div>
+                    </div>
+                    <div class="collapse-content" id="malleco">
+                        <div class="sub-section">
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Oficina de Partes y Movilización
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OFICINA DE PARTES Y MOVILIZACIÓN', 'VIVIANA VIVANCO MONTOYA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Sección Epidemiología
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SECCION EPIDEMIOLOGIA', 'DANIELA ZANHUEZA SANZANA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Sección Zoonosis
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SECCION ZOONOSIS', 'CARLOS COLINAS BROWN');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Sección Caja y Manejo Fondo Fijo
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SECCION CAJA Y MANEJO FONDO FIJO', 'MITTZI HAUSHEER MEDINA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-unidad" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Secretaria y OIRS
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('SECRETARIA Y OIRS', 'ALEXANDRA INOSTROZA REYES');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <div class="node nivel-oas" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Oficina de Acción Sanitaria Angol
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OAS ANGOL', 'PAOLA NOVOA LAGOS');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Oficina de Acción Sanitaria Collipulli
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OAS COLLIPULLI', 'HECTOR CIFUENTES ESCALONA');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Oficina de Acción Sanitaria Victoria
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OAS VICTORIA', 'VERONICA GAETE VARGAS');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                            <div class="node nivel-oas" onclick="window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank')" style="cursor: pointer;">
+                                Oficina de Acción Sanitaria Lonquimay
+                                <span class="jefatura-icon" onclick="event.stopPropagation(); mostrarJefatura('OAS LONQUIMAY', 'KARLA FUENTES CORONADO');" title="Ver jefatura">ⓘ</span> <span class="link-icon" onclick="event.stopPropagation(); window.open('http://www.seremisalud9.cl/transparencia_activa/organigrama/pagina_web_araucania/SEREMI_Salud_Araucania.html', '_blank');" title="Ver funciones">📄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <p style="text-align: center; margin-top: 25px; color: #666; font-size: 14px;">
+            💡 <strong>Tip:</strong> Haz clic en los departamentos para expandir/colapsar. Haz clic en el icono ️ para ver las jefaturas. Usa la búsqueda para encontrar unidades específicas.
+        </p>
+
+        <p style="text-align: center; margin-top: 35px; color: #999; font-size: 12px;">
+            Última actualización: Diciembre 2025 | SEREMI de Salud - Región de La Araucanía
+        </p>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+    
+    <!-- Modal para mostrar jefaturas -->
+    <div class="modal-overlay" id="modalOverlay" onclick="cerrarModal()"></div>
+    <div class="jefatura-modal" id="jefaturaModal">
+        <div class="modal-header">
+            <h2 id="modalTitulo">Jefatura de Departamento</h2>
+            <button class="modal-close" onclick="cerrarModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="jefatura-info">
+                <div class="jefatura-icon">👤</div>
+                <div class="jefatura-cargo" id="modalCargo">CARGO</div>
+                <div class="jefatura-nombre" id="modalNombre">NOMBRE COMPLETO</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let zoomLevel = 1;
+
+        // Tooltips
+        const tooltip = document.getElementById('tooltip');
+        const nodes = document.querySelectorAll('.node');
+
+        nodes.forEach(node => {
+            node.addEventListener('mouseenter', (e) => {
+                const info = node.getAttribute('data-info');
+                if (info) {
+                    tooltip.textContent = info;
+                    tooltip.style.display = 'block';
+                }
+            });
+
+            node.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.clientX + 15 + 'px';
+                tooltip.style.top = e.clientY + 15 + 'px';
+            });
+
+            node.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
+        });
+
+        // Collapse/Expand
+        function toggleSection(id) {
+            event.stopPropagation();
+            const section = document.getElementById(id);
+            const button = event.currentTarget;
+            
+            section.classList.toggle('hidden');
+            button.classList.toggle('collapsed');
+        }
+
+        function expandAll() {
+            document.querySelectorAll('.collapse-content').forEach(el => {
+                el.classList.remove('hidden');
+            });
+            document.querySelectorAll('.collapsible').forEach(el => {
+                el.classList.remove('collapsed');
+            });
+        }
+
+        function collapseAll() {
+            document.querySelectorAll('.collapse-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.querySelectorAll('.collapsible').forEach(el => {
+                el.classList.add('collapsed');
+            });
+        }
+
+        // Zoom
+        function zoomIn() {
+            if (zoomLevel < 1.5) {
+                zoomLevel += 0.1;
+                const container = document.getElementById('orgContainer');
+                container.style.transform = `scale(${zoomLevel})`;
+                container.style.transformOrigin = 'top center';
+            }
+        }
+
+        function zoomOut() {
+            if (zoomLevel > 0.8) {
+                zoomLevel -= 0.1;
+                const container = document.getElementById('orgContainer');
+                container.style.transform = `scale(${zoomLevel})`;
+                container.style.transformOrigin = 'top center';
+            }
+        }
+
+        // Búsqueda
+        function buscar(texto) {
+            const searchText = texto.toLowerCase();
+            
+            // Remover highlights previos
+            nodes.forEach(node => {
+                node.classList.remove('highlight');
+            });
+            
+            if (searchText.length < 2) return;
+            
+            // Buscar y highlight
+            let found = false;
+            nodes.forEach(node => {
+                const nodeText = node.textContent.toLowerCase();
+                
+                if (nodeText.includes(searchText)) {
+                    node.classList.add('highlight');
+                    if (!found) {
+                        node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        found = true;
+                    }
+                    
+                    // Expandir la sección padre si está colapsada
+                    let parent = node.closest('.collapse-content');
+                    if (parent && parent.classList.contains('hidden')) {
+                        parent.classList.remove('hidden');
+                        const button = document.querySelector(`[onclick*="${parent.id}"]`);
+                        if (button) button.classList.remove('collapsed');
+                    }
+                }
+            });
+        }
+
+        // Mostrar modal de jefatura
+        function mostrarJefatura(cargo, nombre, tituloPersonalizado) {
+            event.stopPropagation();
+            const modal = document.getElementById('jefaturaModal');
+            const overlay = document.getElementById('modalOverlay');
+            const modalCargo = document.getElementById('modalCargo');
+            const modalNombre = document.getElementById('modalNombre');
+            const modalTitulo = document.getElementById('modalTitulo');
+            
+            modalTitulo.textContent = tituloPersonalizado || 'JEFATURA';
+            modalCargo.textContent = cargo;
+            modalNombre.textContent = nombre;
+            
+            overlay.classList.add('show');
+            modal.classList.add('show');
+        }
+
+        // Cerrar modal
+        function cerrarModal() {
+            const modal = document.getElementById('jefaturaModal');
+            const overlay = document.getElementById('modalOverlay');
+            
+            overlay.classList.remove('show');
+            modal.classList.remove('show');
+        }
+
+        // Cerrar modal con tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                cerrarModal();
+            }
+        });
+
+        // Inicializar con todo expandido
+        window.addEventListener('load', () => {
+            expandAll();
+            
+            // Establecer zoom inicial al 85% para mejor visualización
+            zoomLevel = 0.85;
+            const container = document.getElementById('orgContainer');
+            container.style.transform = `scale(${zoomLevel})`;
+            container.style.transformOrigin = 'top center';
+            
+            // Centrar horizontalmente el contenido
+            setTimeout(() => {
+                const wrapper = document.querySelector('.page-wrapper');
+                if (wrapper) {
+                    const scrollLeft = (wrapper.scrollWidth - wrapper.clientWidth) / 2;
+                    wrapper.scrollLeft = scrollLeft;
+                }
+            }, 100);
+            
+            console.log('✅ Organigrama SEREMI completo cargado');
+            console.log('📊 Total unidades: 70+');
+            console.log('🔍 Usa la búsqueda para encontrar unidades');
+            console.log('️ Haz clic en el icono de identificación para ver jefaturas');
+        });
+    </script>
+    </div>
+</body>
+</html>
+
